@@ -23,6 +23,7 @@ Item {
     FontLoader {
         source: "FontAwesome.otf"
     }
+
     QtObject {
         id:pimpl
         property bool shiftModifier: false
@@ -30,7 +31,7 @@ Item {
         property int verticalSpacing: keyboard.height / 40
         property int horizontalSpacing: verticalSpacing
         property int rowHeight: keyboard.height/4 - verticalSpacing
-        property int buttonWidth:  (keyboard.width-column.anchors.margins)/10 - horizontalSpacing
+        property int buttonWidth:  (keyboard.width-column.anchors.margins)/11.5 - horizontalSpacing
     }
 
     /**
