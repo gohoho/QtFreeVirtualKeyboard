@@ -15,9 +15,11 @@ Item {
     // Report actual keyboard rectangle to input engine
     onYChanged: InputEngine.setKeyboardRectangle(Qt.rect(x, y, width, height))
 
-    KeyModel {
-        id:keyModel
+    Loader {
+        id: keyModel
+        source: "KeyModel.qml"
     }
+
     FontLoader {
         source: "FontAwesome.otf"
     }
@@ -95,7 +97,7 @@ Item {
                 spacing: pimpl.horizontalSpacing
                 anchors.horizontalCenter:parent.horizontalCenter
                 Repeater {
-                    model: keyModel.firstRowModel
+                    model: keyModel.item.firstRowModel
                     delegate: keyButtonDelegate
                 }
             }
@@ -104,7 +106,7 @@ Item {
                 spacing: pimpl.horizontalSpacing
                 anchors.horizontalCenter:parent.horizontalCenter
                 Repeater {
-                    model: keyModel.secondRowModel
+                    model: keyModel.item.secondRowModel
                     delegate: keyButtonDelegate
                 }
             }
@@ -134,7 +136,7 @@ Item {
                     anchors.horizontalCenter:parent.horizontalCenter
                     Repeater {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        model: keyModel.thirdRowModel
+                        model: keyModel.item.thirdRowModel
                         delegate: keyButtonDelegate
                     }
                 }
@@ -173,8 +175,18 @@ Item {
                     color: "#1e1b18"
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    text: ""
+                    text: "en/ru"
                     inputPanel: root
+                    onClicked: {
+                        console.log("keyModel source before", keyModel.source)
+                        if (keyModel.source == "qrc:/KeyModelRu.qml")
+                            keyModel.source = "qrc:/KeyModel.qml"
+                        else
+                            keyModel.source = "qrc:/KeyModelRu.qml"
+
+
+                        console.log("keyModel source after", keyModel.source)
+                    }
                     functionKey: true
                 }
                 KeyButton {
