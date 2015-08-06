@@ -180,14 +180,10 @@ Item {
                     text: "en/ru"
                     inputPanel: root
                     onClicked: {
-                        console.log("keyModel source before", keyModel.source)
                         if (keyModel.source == "qrc:/KeyModelRu.qml")
                             keyModel.source = "qrc:/KeyModel.qml"
                         else
                             keyModel.source = "qrc:/KeyModelRu.qml"
-
-
-                        console.log("keyModel source after", keyModel.source)
                     }
                     functionKey: true
                 }
