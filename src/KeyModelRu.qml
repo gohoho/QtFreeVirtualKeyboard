@@ -49,6 +49,7 @@ Item {
         ListElement { letter: "и"; firstSymbol: ")"}
         ListElement { letter: "т"; firstSymbol: "-"}
         ListElement { letter: "ь"; firstSymbol: "+"}
+        ListElement { letter: "б"; firstSymbol: "+"}
         ListElement { letter: "ю"; firstSymbol: "+"}
     }
 }
