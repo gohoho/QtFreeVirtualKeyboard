@@ -154,6 +154,24 @@ Rectangle {
                     }
                 }
 
+                Label {
+                    text: "Free text field:"
+                    font.pixelSize: freeTextField.font.pixelSize
+                }
+
+                TextField {
+                    id: freeTextField
+                    style: TextFieldFlatStyle {}
+                    width: grid.width - x
+                    //placeholderText: "Flow (ml/s)"
+                    //inputMethodHints: Qt.ImhFormattedNumbersOnly
+                    //validator: DoubleValidator {
+                        //bottom: 0;
+                        //top: 2000;
+                        //notation: DoubleValidator.StandardNotation
+                        //decimals: 6
+                    //}
+                }
                 // 3rd row ----------------------
                 Rectangle {
                     id: dumy
