@@ -121,7 +121,8 @@ Item {
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
                     font.family: "FontAwesome"
-                    text: "\uf062"
+                    //text: "\uf062"
+                    text: "\u21E7 "
                     functionKey: true
                     onClicked: {
                         if (pimpl.symbolModifier) {
@@ -149,7 +150,7 @@ Item {
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
                     text: "\x7F"
-                    displayText: "\uf177"
+                    displayText: "\u232B"
                     inputPanel: root
                     repeat: true
                 }
@@ -231,7 +232,8 @@ Item {
                     color: "#1e1b18"
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    displayText: "Enter"
+                    //displayText: "Enter"
+                    displayText: "\u23CE"
                     text: "\n"
                     inputPanel: root
                 }
