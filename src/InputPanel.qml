@@ -33,6 +33,13 @@ Item {
         property int horizontalSpacing: verticalSpacing
         property int rowHeight: keyboard.height/4 - verticalSpacing
         property int buttonWidth:  (keyboard.width-column.anchors.margins)/12 - horizontalSpacing
+
+        onSymbolModifierChanged: {
+            if (symbolModifier)
+                keyModel.source = "qrc:/KeyModelSymbols.qml"
+            else
+                keyModel.source = pimpl.alfaKeyModel
+        }
     }
 
     /**
@@ -224,10 +231,6 @@ Item {
                             pimpl.shiftModifier = false
                         }
                         pimpl.symbolModifier = !pimpl.symbolModifier
-                        if (pimpl.symbolModifier)
-                            keyModel.source = "qrc:/KeyModelSymbols.qml"
-                        else
-                            keyModel.source = pimpl.alfaKeyModel
                     }
                     inputPanel: root
                 }
