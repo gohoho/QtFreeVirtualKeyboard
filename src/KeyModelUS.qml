@@ -1,10 +1,5 @@
 import QtQuick 2.0
 
-/**
- * This is quick and dirty model for the keys of the InputPanel *
- * The code has been copied from
- * http://tolszak-dev.blogspot.de/2013/04/qplatforminputcontext-and-virtual.html
- */
 Item {
     property QtObject firstRowModel: first
     property QtObject secondRowModel: second

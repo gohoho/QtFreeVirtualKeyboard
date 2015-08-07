@@ -11,6 +11,8 @@ CONFIG += plugin
 TARGET = VirtualKeyboard
 TEMPLATE = lib
 
+OBJECTS_DIR = .obj
+MOC_DIR = .moc
 
 SOURCES += VirtualKeyboardInputContextPlugin.cpp \
     VirtualKeyboardInputContext.cpp \
@@ -20,17 +22,10 @@ HEADERS += VirtualKeyboardInputContextPlugin.h\
     VirtualKeyboardInputContext.h \
     DeclarativeInputEngine.h
 
-
 deployment.files = *.qml FontAwesome.otf qmldir
 
-linux-buildroot-g++ {
-    deployment.path = /usr/qml/QtQuick/VirtualKeyboard
-    target.path = /usr/lib/qt/plugins/platforminputcontexts
-} else {
-    deployment.path = $$[QT_INSTALL_QML]/QtQuick/VirtualKeyboard
-    target.path = $$[QT_INSTALL_PLUGINS]/platforminputcontexts
-}
-
+deployment.path = $$[QT_INSTALL_QML]/QtQuick/VirtualKeyboard
+target.path = $$[QT_INSTALL_PLUGINS]/platforminputcontexts
 
 INSTALLS += target \
     deployment

@@ -4,16 +4,11 @@ QT += qml quick
 SOURCES += main.cpp
 CONFIG += link_pkgconfig
 
+OBJECTS_DIR = .obj
+MOC_DIR = .moc
 
-linux-buildroot-g++ {
-    deployment.files = *.qml *.otf *.ttf *.svg
-    target.path = /vktest
-    deployment.path = /vktest
-    INSTALLS += target deployment
-} else {
-    target.path = $$[QT_INSTALL_PLUGINS]/virtualkeyboard
-    INSTALLS += target
-}
+target.path = $$[QT_INSTALL_PLUGINS]/virtualkeyboard
+INSTALLS += target
 
 
 RESOURCES += \
@@ -30,5 +25,4 @@ OTHER_FILES += \
 DESTDIR = $$PWD
 
 DISTFILES += \
-    StyleHelper.aml \
     Style.qml
