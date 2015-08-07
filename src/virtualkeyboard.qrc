@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>KeyModel.qml</file>
-        <file>KeyModelRu.qml</file>
+        <file>KeyModelUS.qml</file>
+        <file>KeyModelRU.qml</file>
+        <file>KeyModelSymbols.qml</file>
     </qresource>
 </RCC>

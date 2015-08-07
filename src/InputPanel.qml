@@ -17,7 +17,7 @@ Item {
 
     Loader {
         id: keyModel
-        source: "KeyModel.qml"
+        source: pimpl.alfaKeyModel
     }
 
     FontLoader {
@@ -26,6 +26,7 @@ Item {
 
     QtObject {
         id:pimpl
+        property url alfaKeyModel: "qrc:/KeyModelUS.qml"
         property bool shiftModifier: false
         property bool symbolModifier: false
         property int verticalSpacing: keyboard.height / 40
@@ -43,7 +44,7 @@ Item {
             id: button
             width: pimpl.buttonWidth
             height: pimpl.rowHeight
-            text: (pimpl.shiftModifier) ? letter.toUpperCase() : (pimpl.symbolModifier)?firstSymbol : letter
+            text: (pimpl.shiftModifier) ? symbol.toUpperCase() : symbol
             inputPanel: root
         }
     }
@@ -174,16 +175,19 @@ Item {
                     showPreview: false
                 }
                 KeyButton {
+                    id: layoutKey
                     color: "#1e1b18"
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
                     text: "en/ru"
                     inputPanel: root
                     onClicked: {
-                        if (keyModel.source == "qrc:/KeyModelRu.qml")
-                            keyModel.source = "qrc:/KeyModel.qml"
+                        if (pimpl.alfaKeyModel == "qrc:/KeyModelRU.qml")
+                            pimpl.alfaKeyModel = "qrc:/KeyModelUS.qml"
                         else
-                            keyModel.source = "qrc:/KeyModelRu.qml"
+                            pimpl.alfaKeyModel = "qrc:/KeyModelRU.qml"
+                        keyModel.source = pimpl.alfaKeyModel
+                        pimpl.symbolModifier = false
                     }
                     functionKey: true
                 }
@@ -220,6 +224,10 @@ Item {
                             pimpl.shiftModifier = false
                         }
                         pimpl.symbolModifier = !pimpl.symbolModifier
+                        if (pimpl.symbolModifier)
+                            keyModel.source = "qrc:/KeyModelSymbols.qml"
+                        else
+                            keyModel.source = pimpl.alfaKeyModel
                     }
                     inputPanel: root
                 }
