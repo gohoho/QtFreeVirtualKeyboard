@@ -38,6 +38,7 @@ INSTALLS += target \
 OTHER_FILES += \
     InputPanel.qml \
     KeyModel.qml \
+    KeyModelRu.qml \
     KeyButton.qml \
     KeyPopup.qml
 

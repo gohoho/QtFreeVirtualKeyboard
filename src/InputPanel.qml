@@ -15,20 +15,31 @@ Item {
     // Report actual keyboard rectangle to input engine
     onYChanged: InputEngine.setKeyboardRectangle(Qt.rect(x, y, width, height))
 
-    KeyModel {
-        id:keyModel
+    Loader {
+        id: keyModel
+        source: pimpl.alfaKeyModel
     }
+
     FontLoader {
         source: "FontAwesome.otf"
     }
+
     QtObject {
         id:pimpl
+        property url alfaKeyModel: "qrc:/KeyModelUS.qml"
         property bool shiftModifier: false
         property bool symbolModifier: false
         property int verticalSpacing: keyboard.height / 40
         property int horizontalSpacing: verticalSpacing
         property int rowHeight: keyboard.height/4 - verticalSpacing
-        property int buttonWidth:  (keyboard.width-column.anchors.margins)/10 - horizontalSpacing
+        property int buttonWidth:  (keyboard.width-column.anchors.margins)/12 - horizontalSpacing
+
+        onSymbolModifierChanged: {
+            if (symbolModifier)
+                keyModel.source = "qrc:/KeyModelSymbols.qml"
+            else
+                keyModel.source = pimpl.alfaKeyModel
+        }
     }
 
     /**
@@ -40,7 +51,7 @@ Item {
             id: button
             width: pimpl.buttonWidth
             height: pimpl.rowHeight
-            text: (pimpl.shiftModifier) ? letter.toUpperCase() : (pimpl.symbolModifier)?firstSymbol : letter
+            text: (pimpl.shiftModifier) ? symbol.toUpperCase() : symbol
             inputPanel: root
         }
     }
@@ -95,7 +106,7 @@ Item {
                 spacing: pimpl.horizontalSpacing
                 anchors.horizontalCenter:parent.horizontalCenter
                 Repeater {
-                    model: keyModel.firstRowModel
+                    model: keyModel.item.firstRowModel
                     delegate: keyButtonDelegate
                 }
             }
@@ -104,7 +115,7 @@ Item {
                 spacing: pimpl.horizontalSpacing
                 anchors.horizontalCenter:parent.horizontalCenter
                 Repeater {
-                    model: keyModel.secondRowModel
+                    model: keyModel.item.secondRowModel
                     delegate: keyButtonDelegate
                 }
             }
@@ -118,7 +129,8 @@ Item {
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
                     font.family: "FontAwesome"
-                    text: "\uf062"
+                    //text: "\uf062"
+                    text: "\u21E7 "
                     functionKey: true
                     onClicked: {
                         if (pimpl.symbolModifier) {
@@ -134,7 +146,7 @@ Item {
                     anchors.horizontalCenter:parent.horizontalCenter
                     Repeater {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        model: keyModel.thirdRowModel
+                        model: keyModel.item.thirdRowModel
                         delegate: keyButtonDelegate
                     }
                 }
@@ -146,7 +158,7 @@ Item {
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
                     text: "\x7F"
-                    displayText: "\uf177"
+                    displayText: "\u232B"
                     inputPanel: root
                     repeat: true
                 }
@@ -170,11 +182,20 @@ Item {
                     showPreview: false
                 }
                 KeyButton {
+                    id: layoutKey
                     color: "#1e1b18"
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    text: ""
+                    text: "en/ru"
                     inputPanel: root
+                    onClicked: {
+                        if (pimpl.alfaKeyModel == "qrc:/KeyModelRU.qml")
+                            pimpl.alfaKeyModel = "qrc:/KeyModelUS.qml"
+                        else
+                            pimpl.alfaKeyModel = "qrc:/KeyModelRU.qml"
+                        keyModel.source = pimpl.alfaKeyModel
+                        pimpl.symbolModifier = false
+                    }
                     functionKey: true
                 }
                 KeyButton {
@@ -218,7 +239,8 @@ Item {
                     color: "#1e1b18"
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    displayText: "Enter"
+                    //displayText: "Enter"
+                    displayText: "\u23CE"
                     text: "\n"
                     inputPanel: root
                 }
