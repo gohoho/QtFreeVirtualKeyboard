@@ -53,6 +53,7 @@ Item {
             height: pimpl.rowHeight
             text: (pimpl.shiftModifier) ? symbol.toUpperCase() : symbol
             inputPanel: root
+            showPreview: false
         }
     }
 
@@ -139,6 +140,7 @@ Item {
                         pimpl.shiftModifier = !pimpl.shiftModifier
                     }
                     inputPanel: root
+                    showPreview: false
                 }
                 Row {
                     height: pimpl.rowHeight
@@ -161,6 +163,7 @@ Item {
                     displayText: "\u232B"
                     inputPanel: root
                     repeat: true
+                    showPreview: false
                 }
             }
             Row {
@@ -197,6 +200,7 @@ Item {
                         pimpl.symbolModifier = false
                     }
                     functionKey: true
+                    showPreview: false
                 }
                 KeyButton {
                     width: pimpl.buttonWidth
@@ -204,6 +208,7 @@ Item {
                     text: ","
                     onClicked: InputEngine.sendKeyToFocusItem(text)
                     inputPanel: root
+                    showPreview: false
                 }
                 KeyButton {
                     id: spaceKey
@@ -218,6 +223,7 @@ Item {
                     height: pimpl.rowHeight
                     text: "."
                     inputPanel: root
+                    showPreview: false
                 }
                 KeyButton {
                     id: symbolKey
@@ -233,6 +239,7 @@ Item {
                         pimpl.symbolModifier = !pimpl.symbolModifier
                     }
                     inputPanel: root
+                    showPreview: false
                 }
                 KeyButton {
                     id: enterKey
@@ -243,6 +250,7 @@ Item {
                     displayText: "\u23CE"
                     text: "\n"
                     inputPanel: root
+                    showPreview: false
                 }
             }
         }
