@@ -72,9 +72,7 @@ Item {
     /**
      * This function shows the character preview popup for each key button
      */
-    function showKeyPopup(keyButton)
-    {
-        console.log("showKeyPopup");
+    function showKeyPopup(keyButton) {
         keyPopup.popup(keyButton, root);
     }
 

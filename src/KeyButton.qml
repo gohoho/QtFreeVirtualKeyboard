@@ -125,11 +125,9 @@ Item {
             if (root.state == "")
             {
                 root.state = "REPEATING"
-                console.log("switching to repeating");
             }
             else if (root.state == "REPEATING")
             {
-                console.log("repeating");
             }
 
             if (!functionKey)
@@ -137,10 +135,6 @@ Item {
                 InputEngine.sendKeyToFocusItem(text)
             }
         }
-    }
-
-    onInputPanelChanged: {
-        console.log("onInputPanelChanged: " + inputPanel.objectName);
     }
 
     /**
@@ -158,7 +152,6 @@ Item {
 
     onReleased: {
         state = ""
-        console.log("onReleased - functionKey = " + functionKey)
         if (!functionKey)
         {
             InputEngine.sendKeyToFocusItem(text)
