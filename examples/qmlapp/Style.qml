@@ -1,6 +1,6 @@
 pragma Singleton
-import QtQuick 2.3
-import QtQuick.Window 2.0
+import QtQuick 2.5
+import QtQuick.Window 2.2
 
 QtObject {
     function dp(value) {

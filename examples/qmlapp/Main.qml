@@ -16,12 +16,12 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.0
-import "content"
+import QtQuick 2.5
+import QtQuick.VirtualKeyboard 1.0
 
 Rectangle {
-    width: parent.width
-    height: parent.height
+    //width: parent.width
+    //height: parent.height
     color: "#005F3F"
 
     Flickable {
@@ -34,7 +34,6 @@ Rectangle {
         contentHeight: content.height
         interactive: contentHeight > height
         flickableDirection: Flickable.VerticalFlick
-        children: ScrollBar {}
 
         MouseArea  {
             id: content
@@ -125,6 +124,34 @@ Rectangle {
                     width: parent.width
                     previewText: "Multiple lines field"
                     height: Math.max(206, implicitHeight)
+                }
+            }
+        }
+
+        InputPanel {
+            id: inputPanel
+            z: 99
+            y: parent.height
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: Math.min(parent.width, 800)
+            states: State {
+                name: "visible"
+                when: Qt.inputMethod.visible
+                PropertyChanges {
+                    target: inputPanel
+                    y: parent.height - inputPanel.height
+                }
+            }
+            transitions: Transition {
+                from: ""
+                to: "visible"
+                reversible: true
+                ParallelAnimation {
+                    NumberAnimation {
+                        properties: "y"
+                        duration: 150
+                        easing.type: Easing.InOutQuad
+                    }
                 }
             }
         }

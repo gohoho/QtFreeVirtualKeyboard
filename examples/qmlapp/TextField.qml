@@ -16,8 +16,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.0
-//import "../../../src"
+import QtQuick 2.5
 
 TextBase {
     id: textField

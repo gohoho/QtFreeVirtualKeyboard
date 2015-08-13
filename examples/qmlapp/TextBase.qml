@@ -15,7 +15,8 @@
 ** contact form at http://www.qt.io
 **
 ****************************************************************************/
-import QtQuick 2.0
+
+import QtQuick 2.5
 
 FocusScope {
     id: textBase
