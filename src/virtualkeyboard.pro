@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += qml quick quick-private gui-private
+QT       += qml quick quick-private gui-private widgets
 
 CONFIG += plugin
 

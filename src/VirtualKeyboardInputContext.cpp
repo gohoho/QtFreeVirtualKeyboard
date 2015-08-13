@@ -19,6 +19,7 @@
 #include <QQmlEngine>
 #include <QJSEngine>
 #include <QPropertyAnimation>
+#include <QWidget>
 
 #include <private/qquickflickable_p.h>
 #include "DeclarativeInputEngine.h"
@@ -32,7 +33,7 @@ class VirtualKeyboardInputContextPrivate
 public:
     VirtualKeyboardInputContextPrivate();
     QQuickFlickable* Flickable;
-    QQuickItem* FocusItem;
+    QWidget* FocusItem;
     bool Visible;
     DeclarativeInputEngine* InputEngine;
     QPropertyAnimation* FlickableContentScrollAnimation;//< for smooth scrolling of flickable content item
@@ -142,7 +143,8 @@ void VirtualKeyboardInputContext::setFocusObject(QObject *object)
 
     // we only support QML at the moment - so if this is not a QML item, then
     // we leave immediatelly
-    d->FocusItem = dynamic_cast<QQuickItem*>(object);
+    //d->FocusItem = dynamic_cast<QQuickItem*>(object);
+    d->FocusItem = dynamic_cast<QWidget*>(object);
     if (!d->FocusItem)
     {
         return;
@@ -175,18 +177,18 @@ void VirtualKeyboardInputContext::setFocusObject(QObject *object)
 
     // Search for the top most flickable so that we can scroll the control
     // into the visible area, if the keyboard hides the control
-    QQuickItem* i = d->FocusItem;
-    d->Flickable = 0;
-    while (i)
-    {
-        QQuickFlickable* Flickable = dynamic_cast<QQuickFlickable*>(i);
-        if (Flickable)
-        {
-            d->Flickable = Flickable;
-            qDebug() << "is QQuickFlickable";
-        }
-        i = i->parentItem();
-    }
+    //QQuickItem* i = d->FocusItem;
+    //d->Flickable = 0;
+    //while (i)
+    //{
+        //QQuickFlickable* Flickable = dynamic_cast<QQuickFlickable*>(i);
+        //if (Flickable)
+        //{
+            //d->Flickable = Flickable;
+            //qDebug() << "is QQuickFlickable";
+        //}
+        //i = i->parentItem();
+    //}
 
     ensureFocusedObjectVisible();
 }
@@ -197,34 +199,34 @@ void VirtualKeyboardInputContext::ensureFocusedObjectVisible()
 {
     // If the keyboard is hidden, no scrollable element exists or the keyboard
     // is just animating, then we leave here
-    if (!d->Visible || !d->Flickable || d->InputEngine->isAnimating())
-    {
-        return;
-    }
+    //if (!d->Visible || !d->Flickable || d->InputEngine->isAnimating())
+    //{
+        //return;
+    //}
 
-    qDebug() << "VirtualKeyboardInputContext::ensureFocusedObjectVisible";
-    QRectF FocusItemRect(0, 0, d->FocusItem->width(), d->FocusItem->height());
-    FocusItemRect = d->Flickable->mapRectFromItem(d->FocusItem, FocusItemRect);
-    qDebug() << "FocusItemRect: " << FocusItemRect;
-    qDebug() << "Content origin: " << QPointF(d->Flickable->contentX(),
-        d->Flickable->contentY());
-    qDebug() << "Flickable size: " << QSize(d->Flickable->width(), d->Flickable->height());
-    d->FlickableContentScrollAnimation->setTargetObject(d->Flickable);
-    qreal ContentY = d->Flickable->contentY();
-    if (FocusItemRect.bottom() >= d->Flickable->height())
-    {
-        qDebug() << "Item outside!!!  FocusItemRect.bottom() >= d->Flickable->height()";
-        ContentY = d->Flickable->contentY() + (FocusItemRect.bottom() - d->Flickable->height()) + 20;
-        d->FlickableContentScrollAnimation->setEndValue(ContentY);
-        d->FlickableContentScrollAnimation->start();
-    }
-    else if (FocusItemRect.top() < 0)
-    {
-        qDebug() << "Item outside!!!  d->FocusItem->position().x < 0";
-        ContentY = d->Flickable->contentY() + FocusItemRect.top() - 20;
-        d->FlickableContentScrollAnimation->setEndValue(ContentY);
-        d->FlickableContentScrollAnimation->start();
-    }
+    //qDebug() << "VirtualKeyboardInputContext::ensureFocusedObjectVisible";
+    //QRectF FocusItemRect(0, 0, d->FocusItem->width(), d->FocusItem->height());
+    //FocusItemRect = d->Flickable->mapRectFromItem(d->FocusItem, FocusItemRect);
+    //qDebug() << "FocusItemRect: " << FocusItemRect;
+    //qDebug() << "Content origin: " << QPointF(d->Flickable->contentX(),
+        //d->Flickable->contentY());
+    //qDebug() << "Flickable size: " << QSize(d->Flickable->width(), d->Flickable->height());
+    //d->FlickableContentScrollAnimation->setTargetObject(d->Flickable);
+    //qreal ContentY = d->Flickable->contentY();
+    //if (FocusItemRect.bottom() >= d->Flickable->height())
+    //{
+        //qDebug() << "Item outside!!!  FocusItemRect.bottom() >= d->Flickable->height()";
+        //ContentY = d->Flickable->contentY() + (FocusItemRect.bottom() - d->Flickable->height()) + 20;
+        //d->FlickableContentScrollAnimation->setEndValue(ContentY);
+        //d->FlickableContentScrollAnimation->start();
+    //}
+    //else if (FocusItemRect.top() < 0)
+    //{
+        //qDebug() << "Item outside!!!  d->FocusItem->position().x < 0";
+        //ContentY = d->Flickable->contentY() + FocusItemRect.top() - 20;
+        //d->FlickableContentScrollAnimation->setEndValue(ContentY);
+        //d->FlickableContentScrollAnimation->start();
+    //}
 }
 
 
