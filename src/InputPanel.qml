@@ -17,6 +17,8 @@ Item {
     // Report actual keyboard rectangle to input engine
     onYChanged: InputEngine.setKeyboardRectangle(Qt.rect(x, y, width, height))
 
+    property string font: "FontAwesome"
+
     Loader {
         id: keyModel
         source: pimpl.alfaKeyModel
@@ -54,6 +56,7 @@ Item {
             width: pimpl.buttonWidth
             height: pimpl.rowHeight
             text: (pimpl.shiftModifier) ? symbol.toUpperCase() : symbol
+            font.family: root.font
             color: "#fcfcfc"
             textColor: "#2a2928"
             inputPanel: root
@@ -117,6 +120,7 @@ Item {
                     anchors.rightMargin: 25
 
                     font.pointSize: 20
+                    font.family: root.font
                     focus: true
 
                     style: TextFieldStyle {
@@ -130,7 +134,7 @@ Item {
 
                 KeyButton {
                     id: backspaceKey
-                    font.family: "FontAwesome"
+                    font.family: root.font
                     color: "#717170"
                     textColor: "#fcfcfc"
                     anchors.right: parent.right
@@ -176,7 +180,7 @@ Item {
                         textColor: "#fcfcfc"
                         width: pimpl.buttonWidth
                         height: pimpl.rowHeight
-                        font.family: "FontAwesome"
+                        font.family: root.font
                         //text: "\uf062"
                         text: "\u21E7 "
                         functionKey: true
@@ -209,6 +213,7 @@ Item {
                     height: pimpl.rowHeight
                     text: (!pimpl.symbolModifier)? "?123" : "ABC"
                     functionKey: true
+                    font.family: root.font
                     onClicked: {
                         if (pimpl.shiftModifier) {
                             pimpl.shiftModifier = false
@@ -225,6 +230,7 @@ Item {
                     color: "#fcfcfc"
                     textColor: "#2a2928"
                     text: ","
+                    font.family: root.font
                     onClicked: InputEngine.sendKeyToFocusItem(text)
                     inputPanel: root
                     showPreview: false
@@ -236,6 +242,7 @@ Item {
                     color: "#fcfcfc"
                     textColor: "#2a2928"
                     text: "\u2423"
+                    font.family: root.font
                     inputPanel: root
                     showPreview: false
                 }
@@ -246,6 +253,7 @@ Item {
                     color: "#fcfcfc"
                     textColor: "#2a2928"
                     text: "."
+                    font.family: root.font
                     inputPanel: root
                     showPreview: false
                 }
@@ -256,6 +264,7 @@ Item {
                     color: "#717170"
                     textColor: "#fcfcfc"
                     text: pimpl.alfaKeyModel == "qrc:/KeyModelRU.qml" ? "EN" : "RU"
+                    font.family: root.font
                     inputPanel: root
                     onClicked: {
                         if (pimpl.alfaKeyModel == "qrc:/KeyModelRU.qml")
