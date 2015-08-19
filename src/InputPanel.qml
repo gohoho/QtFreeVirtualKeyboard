@@ -131,8 +131,8 @@ Item {
                 KeyButton {
                     id: backspaceKey
                     font.family: "FontAwesome"
-                    color: "#fcfcfc"
-                    textColor: "#2a2928"
+                    color: "#717170"
+                    textColor: "#fcfcfc"
                     anchors.right: parent.right
                     width: pimpl.buttonWidth
                     height: pimpl.rowHeight
@@ -172,8 +172,8 @@ Item {
 
                     KeyButton {
                         id: shiftKey
-                        color: (pimpl.shiftModifier)? "#717170": "#fcfcfc"
-                        textColor: "#2a2928"
+                        color: "#717170"
+                        textColor: "#fcfcfc"
                         width: pimpl.buttonWidth
                         height: pimpl.rowHeight
                         font.family: "FontAwesome"
@@ -203,8 +203,8 @@ Item {
                 anchors.horizontalCenter:parent.horizontalCenter
                 KeyButton {
                     id: symbolKey
-                    color: "#fcfcfc"
-                    textColor: "#2a2928"
+                    color: "#717170"
+                    textColor: "#fcfcfc"
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
                     text: (!pimpl.symbolModifier)? "?123" : "ABC"
@@ -231,7 +231,7 @@ Item {
                 }
                 KeyButton {
                     id: spaceKey
-                    width: 3*pimpl.buttonWidth
+                    width: 4*pimpl.buttonWidth
                     height: pimpl.rowHeight
                     color: "#fcfcfc"
                     textColor: "#2a2928"
@@ -253,8 +253,8 @@ Item {
                     id: layoutKey
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    color: "#fcfcfc"
-                    textColor: "#2a2928"
+                    color: "#717170"
+                    textColor: "#fcfcfc"
                     text: pimpl.alfaKeyModel == "qrc:/KeyModelRU.qml" ? "EN" : "RU"
                     inputPanel: root
                     onClicked: {
