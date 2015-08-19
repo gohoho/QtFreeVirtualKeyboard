@@ -82,7 +82,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: height / 30
+        radius: height / 8
+        border.color: "#717170"
         color: isHighlighted ? Qt.tint(root.color, "#801e6fa7") : root.color
         Text {
             id: txt

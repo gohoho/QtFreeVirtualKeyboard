@@ -1,4 +1,6 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
 import "."
 import VirtualKeyboard 1.0
 
@@ -11,7 +13,7 @@ Item {
     id:root
     objectName: "inputPanel"
     width: parent.width
-    height: width / 4
+    height: parent.height
     // Report actual keyboard rectangle to input engine
     onYChanged: InputEngine.setKeyboardRectangle(Qt.rect(x, y, width, height))
 
@@ -31,7 +33,7 @@ Item {
         property bool symbolModifier: false
         property int verticalSpacing: keyboard.height / 40
         property int horizontalSpacing: verticalSpacing
-        property int rowHeight: keyboard.height/4 - verticalSpacing
+        property int rowHeight: keyboard.height/5 - verticalSpacing
         property int buttonWidth:  (keyboard.width-column.anchors.margins)/12 - horizontalSpacing
 
         onSymbolModifierChanged: {
@@ -52,6 +54,8 @@ Item {
             width: pimpl.buttonWidth
             height: pimpl.rowHeight
             text: (pimpl.shiftModifier) ? symbol.toUpperCase() : symbol
+            color: "#fcfcfc"
+            textColor: "#2a2928"
             inputPanel: root
             showPreview: false
         }
@@ -89,7 +93,7 @@ Item {
 
     Rectangle {
         id:keyboard
-        color: "black"
+        color: "transparent"
         anchors.fill: parent;
         MouseArea {
             anchors.fill: parent
@@ -100,6 +104,45 @@ Item {
             anchors.margins: 5
             anchors.fill: parent
             spacing: pimpl.verticalSpacing
+
+            Item {
+                height: pimpl.rowHeight
+                width: parent.width
+
+                TextField {
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: backspaceKey.left
+                    anchors.bottom: parent.bottom
+                    anchors.rightMargin: 25
+
+                    font.pointSize: 20
+                    focus: true
+
+                    style: TextFieldStyle {
+                        background: Rectangle {
+                            radius: 10
+                            border.color: "#2a2928"
+                            border.width: 1
+                        }
+                    }
+                }
+
+                KeyButton {
+                    id: backspaceKey
+                    font.family: "FontAwesome"
+                    color: "#fcfcfc"
+                    textColor: "#2a2928"
+                    anchors.right: parent.right
+                    width: pimpl.buttonWidth
+                    height: pimpl.rowHeight
+                    text: "\x7F"
+                    displayText: "\u232B"
+                    inputPanel: root
+                    repeat: true
+                    showPreview: false
+                }
+            }
 
             Row {
                 height: pimpl.rowHeight
@@ -122,47 +165,36 @@ Item {
             Item {
                 height: pimpl.rowHeight
                 width:parent.width
-                KeyButton {
-                    id: shiftKey
-                    color: (pimpl.shiftModifier)? "#1e6fa7": "#1e1b18"
-                    anchors.left: parent.left
-                    width: 1.25*pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    font.family: "FontAwesome"
-                    //text: "\uf062"
-                    text: "\u21E7 "
-                    functionKey: true
-                    onClicked: {
-                        if (pimpl.symbolModifier) {
-                            pimpl.symbolModifier = false
-                        }
-                        pimpl.shiftModifier = !pimpl.shiftModifier
-                    }
-                    inputPanel: root
-                    showPreview: false
-                }
                 Row {
                     height: pimpl.rowHeight
                     spacing: pimpl.horizontalSpacing
                     anchors.horizontalCenter:parent.horizontalCenter
+
+                    KeyButton {
+                        id: shiftKey
+                        color: (pimpl.shiftModifier)? "#717170": "#fcfcfc"
+                        textColor: "#2a2928"
+                        width: pimpl.buttonWidth
+                        height: pimpl.rowHeight
+                        font.family: "FontAwesome"
+                        //text: "\uf062"
+                        text: "\u21E7 "
+                        functionKey: true
+                        onClicked: {
+                            if (pimpl.symbolModifier) {
+                                pimpl.symbolModifier = false
+                            }
+                            pimpl.shiftModifier = !pimpl.shiftModifier
+                        }
+                        inputPanel: root
+                        showPreview: false
+                    }
+
                     Repeater {
                         anchors.horizontalCenter: parent.horizontalCenter
                         model: keyModel.item.thirdRowModel
                         delegate: keyButtonDelegate
                     }
-                }
-                KeyButton {
-                    id: backspaceKey
-                    font.family: "FontAwesome"
-                    color: "#1e1b18"
-                    anchors.right: parent.right
-                    width: 1.25*pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    text: "\x7F"
-                    displayText: "\u232B"
-                    inputPanel: root
-                    repeat: true
-                    showPreview: false
                 }
             }
             Row {
@@ -170,66 +202,12 @@ Item {
                 spacing: pimpl.horizontalSpacing
                 anchors.horizontalCenter:parent.horizontalCenter
                 KeyButton {
-                    id: hideKey
-                    color: "#1e1b18"
-                    width: 1.25*pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    font.family: "FontAwesome"
-                    text: "\uf078"
-                    functionKey: true
-                    onClicked: {
-                        Qt.inputMethod.hide()
-                    }
-                    inputPanel: root
-                    showPreview: false
-                }
-                KeyButton {
-                    id: layoutKey
-                    color: "#1e1b18"
-                    width: 1.25*pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    text: "en/ru"
-                    inputPanel: root
-                    onClicked: {
-                        if (pimpl.alfaKeyModel == "qrc:/KeyModelRU.qml")
-                            pimpl.alfaKeyModel = "qrc:/KeyModelUS.qml"
-                        else
-                            pimpl.alfaKeyModel = "qrc:/KeyModelRU.qml"
-                        keyModel.source = pimpl.alfaKeyModel
-                        pimpl.symbolModifier = false
-                    }
-                    functionKey: true
-                    showPreview: false
-                }
-                KeyButton {
-                    width: pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    text: ","
-                    onClicked: InputEngine.sendKeyToFocusItem(text)
-                    inputPanel: root
-                    showPreview: false
-                }
-                KeyButton {
-                    id: spaceKey
-                    width: 3*pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    text: " "
-                    inputPanel: root
-                    showPreview: false
-                }
-                KeyButton {
-                    width: pimpl.buttonWidth
-                    height: pimpl.rowHeight
-                    text: "."
-                    inputPanel: root
-                    showPreview: false
-                }
-                KeyButton {
                     id: symbolKey
-                    color: "#1e1b18"
+                    color: "#fcfcfc"
+                    textColor: "#2a2928"
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    text: (!pimpl.symbolModifier)? "12#" : "ABC"
+                    text: (!pimpl.symbolModifier)? "?123" : "ABC"
                     functionKey: true
                     onClicked: {
                         if (pimpl.shiftModifier) {
@@ -241,14 +219,53 @@ Item {
                     showPreview: false
                 }
                 KeyButton {
-                    id: enterKey
-                    color: "#1e1b18"
+                    id: commaKey
+                    width: pimpl.buttonWidth
+                    height: pimpl.rowHeight
+                    color: "#fcfcfc"
+                    textColor: "#2a2928"
+                    text: ","
+                    onClicked: InputEngine.sendKeyToFocusItem(text)
+                    inputPanel: root
+                    showPreview: false
+                }
+                KeyButton {
+                    id: spaceKey
+                    width: 3*pimpl.buttonWidth
+                    height: pimpl.rowHeight
+                    color: "#fcfcfc"
+                    textColor: "#2a2928"
+                    text: "\u2423"
+                    inputPanel: root
+                    showPreview: false
+                }
+                KeyButton {
+                    id: dotKey
+                    width: pimpl.buttonWidth
+                    height: pimpl.rowHeight
+                    color: "#fcfcfc"
+                    textColor: "#2a2928"
+                    text: "."
+                    inputPanel: root
+                    showPreview: false
+                }
+                KeyButton {
+                    id: layoutKey
                     width: 1.25*pimpl.buttonWidth
                     height: pimpl.rowHeight
-                    //displayText: "Enter"
-                    displayText: "\u23CE"
-                    text: "\n"
+                    color: "#fcfcfc"
+                    textColor: "#2a2928"
+                    text: pimpl.alfaKeyModel == "qrc:/KeyModelRU.qml" ? "EN" : "RU"
                     inputPanel: root
+                    onClicked: {
+                        if (pimpl.alfaKeyModel == "qrc:/KeyModelRU.qml")
+                            pimpl.alfaKeyModel = "qrc:/KeyModelUS.qml"
+                        else
+                            pimpl.alfaKeyModel = "qrc:/KeyModelRU.qml"
+                        keyModel.source = pimpl.alfaKeyModel
+                        pimpl.symbolModifier = false
+                    }
+                    functionKey: true
                     showPreview: false
                 }
             }
