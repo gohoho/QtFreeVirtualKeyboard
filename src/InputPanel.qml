@@ -184,6 +184,7 @@ Item {
                         //text: "\uf062"
                         text: "\u21E7 "
                         functionKey: true
+                        visible: !pimpl.symbolModifier
                         onClicked: {
                             if (pimpl.symbolModifier) {
                                 pimpl.symbolModifier = false
