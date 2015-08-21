@@ -242,7 +242,8 @@ Item {
                     height: pimpl.rowHeight
                     color: "#fcfcfc"
                     textColor: "#2a2928"
-                    text: "\u2423"
+                    text: " "
+                    displayText: "\u2423"
                     font.family: root.font
                     inputPanel: root
                     showPreview: false
