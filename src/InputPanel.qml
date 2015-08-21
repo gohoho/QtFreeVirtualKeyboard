@@ -30,7 +30,7 @@ Item {
 
     QtObject {
         id:pimpl
-        property url alfaKeyModel: "qrc:/KeyModelUS.qml"
+        property url alfaKeyModel: "qrc:/KeyModelRU.qml"
         property bool shiftModifier: false
         property bool symbolModifier: false
         property int verticalSpacing: keyboard.height / 40
