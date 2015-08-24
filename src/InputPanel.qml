@@ -113,6 +113,7 @@ Item {
                 width: parent.width
 
                 TextField {
+                    objectName: "edit"
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.right: backspaceKey.left
