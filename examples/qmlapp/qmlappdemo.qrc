@@ -1,9 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>TextArea.qml</file>
-        <file>TextBase.qml</file>
-        <file>TextField.qml</file>
-        <file>Main.qml</file>
-        <file>Style.qml</file>
-    </qresource>
-</RCC>
