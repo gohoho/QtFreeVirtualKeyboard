@@ -130,6 +130,7 @@ Item {
                             border.color: "#2a2928"
                             border.width: 1
                         }
+                        passwordCharacter: "*"
                     }
 
                     onInputMethodHintsChanged: {
