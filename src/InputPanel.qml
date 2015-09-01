@@ -135,10 +135,12 @@ Item {
                     onInputMethodHintsChanged: {
                         if (inputMethodHints & Qt.ImhDigitsOnly) {
                             symbolKey.visible = false;
+                            layoutKey.visible = false;
                             pimpl.symbolModifier = true
                             pimpl.shiftModifier = false
                         } else if (inputMethodHints == Qt.ImhNone){
                             symbolKey.visible = true;
+                            layoutKey.visible = true;
                             pimpl.symbolModifier = false
                         }
                     }
