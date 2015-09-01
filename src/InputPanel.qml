@@ -131,6 +131,17 @@ Item {
                             border.width: 1
                         }
                     }
+
+                    onInputMethodHintsChanged: {
+                        if (inputMethodHints & Qt.ImhDigitsOnly) {
+                            symbolKey.visible = false;
+                            pimpl.symbolModifier = true
+                            pimpl.shiftModifier = false
+                        } else if (inputMethodHints == Qt.ImhNone){
+                            symbolKey.visible = true;
+                            pimpl.symbolModifier = false
+                        }
+                    }
                 }
 
                 KeyButton {
