@@ -113,8 +113,11 @@ Item {
                 width: parent.width
 
                 TextField {
-                    objectName: "edit"
                     id: edit
+                    objectName: "edit"
+
+                    property real limitTop: 999999
+                    property real limitBottom: -999999
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.right: backspaceKey.left
@@ -135,7 +138,7 @@ Item {
                     }
 
                     onInputMethodHintsChanged: {
-                        if (inputMethodHints & Qt.ImhDigitsOnly) {
+                        if (inputMethodHints & Qt.ImhFormattedNumbersOnly) {
                             symbolKey.visible = false;
                             layoutKey.visible = false;
                             pimpl.symbolModifier = true;
@@ -148,7 +151,7 @@ Item {
                     }
 
                     Binding on validator {
-                        when: edit.inputMethodHints & Qt.ImhDigitsOnly
+                        when: edit.inputMethodHints & Qt.ImhFormattedNumbersOnly
                         value: doubleValidator
                     }
 
@@ -157,6 +160,8 @@ Item {
                         notation: DoubleValidator.StandardNotation
                         locale: "ru_RU"
                         decimals: 2
+                        bottom:  edit.limitBottom
+                        top: edit.limitTop
                     }
                 }
 
